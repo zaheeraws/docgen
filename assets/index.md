@@ -270,4 +270,4 @@ URL: @{{ $item.Request.URL.Raw | trimQueryParams | e }}@
 
 ---
 [Back to top](#@{{ .Data.Info.Name | trim | glink }}@)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: @{{date_time}}@ by [docgen](https://github.com/thedevsaddam/docgen)
+> Zaheer Abdulwajid <zaheer@weareavp.com> | Generated at: @{{date_time}}@ by [docgen](https://github.com/zaheeraws/docgen)
