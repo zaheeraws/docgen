@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"bytes"
+	"context"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -9,6 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/thedevsaddam/docgen/collection"
+	"github.com/thedevsaddam/docgen/update"
 )
 
 const logo = `
@@ -38,6 +41,7 @@ var (
 		Use:   "docgen",
 		Short: "Generate documentation from Postman JSON collection",
 		Long:  logo,
+		Run:   rootFunc,
 	}
 )
 
@@ -84,6 +88,13 @@ func Execute() error {
 	return cmd.Execute()
 }
 
+func rootFunc(cmd *cobra.Command, args []string) {
+	err := update.SelfUpdate(context.Background(), BuildDate, Version)
+	if err != nil {
+		fmt.Println("Error: failed to update docgen:", err) //this error can be skipped
+	}
+}
+
 func handleErr(message string, err error) {
 	if err != nil {
 		log.Fatal(message, err)
@@ -103,8 +114,12 @@ func readJSONtoHTML(str string) *bytes.Buffer {
 	}
 
 	// populate envCollection with collection variables
-	if len(rt.Variables) > 0 {
+	if len(rt.Variables) > 0 && includeVariable {
 		envCollection.SetCollectionVariables(rt.Variables)
+	}
+
+	if sorted {
+		rt.SortCollections()
 	}
 
 	// override collection variables by env variables
@@ -175,8 +190,12 @@ func readJSONtoMarkdown(str string) *bytes.Buffer {
 	}
 
 	// populate envCollection with collection variables
-	if len(rt.Variables) > 0 {
+	if len(rt.Variables) > 0 && includeVariable {
 		envCollection.SetCollectionVariables(rt.Variables)
+	}
+
+	if sorted {
+		rt.SortCollections()
 	}
 
 	// override collection variables by env variables
@@ -238,8 +257,12 @@ func readJSONtoMarkdownHTML(str string) *bytes.Buffer {
 	}
 
 	// populate envCollection with collection variables
-	if len(rt.Variables) > 0 {
+	if len(rt.Variables) > 0 && includeVariable {
 		envCollection.SetCollectionVariables(rt.Variables)
+	}
+
+	if sorted {
+		rt.SortCollections()
 	}
 
 	// override collection variables by env variables
