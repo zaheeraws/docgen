@@ -38,6 +38,14 @@ curl https://raw.githubusercontent.com/thedevsaddam/docgen/v3/uninstall.sh -o un
 * To make HTML documentation use `docgen build -i input-postman-collection.json -o ~/Downloads/index.html`
 * To make Markdown documentation use `docgen build -i input-postman-collection.json -o ~/Downloads/index.md -m`
 
+```js
+	docgen build -i '/Users/mac/Documents/projects/aviary_docs/BVN daHub.postman_collection.json' -o ~/Downloads/index.md -m
+	docgen build -i '/Users/mac/Documents/projects/aviary_docs/BVN daHub.postman_collection.json' -o '/Users/mac/Documents/projects/bvn_hub-backend/docs/bvn-api.md' -m
+
+	docgen build -i '/Users/mac/Documents/projects/aviary_docs/Aviary API Documentation.postman_collection.json' -o '/Users/mac/Documents/projects/aviary/documentation/AVIARY-API.md' -m
+	docgen build -i '/Users/mac/Documents/projects/aviary_docs/Aviary API Documentation.postman_collection.json' -o '/Users/mac/Documents/projects/aviary/documentation/AVIARY-API.html'
+```
+
 ***[Demo markdown API documentation](_examples/example-doc.md)***
 
 ### Author
